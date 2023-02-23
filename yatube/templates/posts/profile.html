@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  Профайл пользователя {{ author.username }}
+{% endblock %}
+
+{% block content %}       
+  <h1>Все посты пользователя {{ user_name.get_full_name }} </h1> <!-- работает -->
+  <h3>Всего постов: {{ page_obj.paginator.count }} </h3> <!-- работает -->
+  {% for post in page_obj %}
+    <article>
+      <ul>
+        <li>
+          Дата публикации: {{ post.pub_date|date:"d E Y" }} <!-- дата работает -->
+        </li>
+      </ul>
+      <p> {{ post.text }} </p> <!-- работает -->
+      <a href="{% url 'posts:post_detail' post.pk %}">подробная информация</a>
+      <br>
+      {% if post.group %}   
+        <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a> <!-- ссылка работает -->
+      {% endif %}
+    </article>
+    {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+  {% include 'posts/includes/paginator.html' %} <!-- паджинатор работает -->
+{% endblock %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="ru"> 
+  <head>  
+    <!-- Подключены иконки, стили и заполенены мета теги -->
+    <title>Профайл пользователя {{ author.username }} </title>
+  </head>
+  <body>       
+    <header>
+      <nav class="navbar navbar-light" style="background-color: lightskyblue">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <img src="/static/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <span style="color:red">Ya</span>tube
+          </a>
+        </div>
+      </nav>      
+    </header>
+    <main>
+      <div class="container py-5">        
+        <h1>Все посты пользователя {{ author.username }} </h1>
+        <h3>Всего постов: {{ post_number }} </h3>   
+        <article>
+          <ul>
+            <li>
+              Автор: {{ author.username }}
+              <a href="{% url 'posts:profile' post.profile.username %}">все посты пользователя</a>
+            </li>
+            <li>
+              Дата публикации: {{ post.pub_date|date:"d E Y" }}
+            </li>
+          </ul>
+          <p>
+          <!--
+            [Фокшаны.] Еще переходъ до Фокшанъ, во время котораго я ѣхалъ съ 
+            Монго. Человѣкъ пустой, но съ твердыми, хотя и ложными убѣжденіями.
+            Генерал[у] по этому должно быть случаю, угодно было спрашивать о мое
+            мъ здоровьи.
+            Свинья! К[о]вырялъ носъ и ничего не написалъ — вотъ 2 упрека за 
+            нын[ѣшній]     день. Послѣдній упрекъ становится слишкомъ частъ, 
+            хотя походъ и можетъ служить въ немъ отчасти извиненіемъ. 
+            Отношенія мои съ товарищами становятся такъ пріятны, что мнѣ 
+            жалко бросить штабъ. Здоровье кажется (2) лучше. 
+          --> 
+          </p>
+          <a href="{% url 'posts:post_detail' post.posts.post_id %}">подробная информация </a>
+        </article>       
+        <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>        
+        <hr>
+        <!-- Остальные посты. после последнего нет черты -->
+        <!-- Здесь подключён паджинатор -->  
+      </div>
+    </main>
+    <footer class="border-top text-center py-3">
+      <p>© <!--2021 --> Copyright <span style="color:red">Ya</span>tube</p>    
+    </footer>
+  </body>
+</html> {% endcomment %}
