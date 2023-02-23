@@ -1,8 +1,11 @@
 # backend_community_homework
 
 [![CI](https://github.com/yandex-praktikum/hw03_forms/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw03_forms/actions/workflows/python-app.yml)
+
 Блог Yatube для общения
+
 Описание
+
 Можно содать свои посты в социальной сети
 
 Технологии
